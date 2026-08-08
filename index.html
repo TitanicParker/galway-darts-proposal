@@ -24,18 +24,67 @@
         });
 
         const deck = document.getElementById('deck');
+        if (!deck || !slides.length) return;
+
+        const currentIndex = () => Math.max(
+          0,
+          Math.min(slides.length - 1, Math.round(deck.scrollLeft / Math.max(1, deck.clientWidth)))
+        );
+
+        const goTo = (index, behavior = 'smooth') => {
+          const i = Math.max(0, Math.min(slides.length - 1, index));
+          const card = slides[i].querySelector('.card');
+          if (card) card.scrollTop = 0;
+          slides[i].scrollIntoView({behavior, inline:'start', block:'nearest'});
+        };
+
         const markActive = () => {
-          if (!deck || !slides.length) return;
-          const i = Math.max(0, Math.min(slides.length - 1, Math.round(deck.scrollLeft / Math.max(1, deck.clientWidth))));
+          const i = currentIndex();
           slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
         };
         markActive();
-        deck?.addEventListener('scroll', () => requestAnimationFrame(markActive), {passive:true});
+        deck.addEventListener('scroll', () => requestAnimationFrame(markActive), {passive:true});
+
+        /*
+          Reliable mobile swipe layer.
+          Horizontal gestures change card.
+          Vertical gestures remain available for scrolling dense cards.
+        */
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartedAt = 0;
+        let touchIndex = 0;
+        let trackingTouch = false;
+
+        deck.addEventListener('touchstart', (event) => {
+          if (event.touches.length !== 1) {
+            trackingTouch = false;
+            return;
+          }
+          const touch = event.touches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          touchStartedAt = performance.now();
+          touchIndex = currentIndex();
+          trackingTouch = true;
+        }, {passive:true, capture:true});
+
+        deck.addEventListener('touchend', (event) => {
+          if (!trackingTouch || event.changedTouches.length !== 1) return;
+          trackingTouch = false;
+
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+          const elapsed = performance.now() - touchStartedAt;
+          const horizontal = Math.abs(dx) >= 42 && Math.abs(dx) > Math.abs(dy) * 1.15;
+
+          if (!horizontal || elapsed > 1200) return;
+          goTo(touchIndex + (dx < 0 ? 1 : -1));
+        }, {passive:true, capture:true});
 
         window.addEventListener('resize', () => {
-          if (!deck || !slides.length) return;
-          const i = Math.max(0, Math.min(slides.length - 1, Math.round(deck.scrollLeft / Math.max(1, deck.clientWidth))));
-          slides[i]?.scrollIntoView({behavior:'auto',inline:'start',block:'nearest'});
+          goTo(currentIndex(), 'auto');
         }, {passive:true});
       })();
     `;
@@ -47,7 +96,7 @@
       })
       .then(source => {
         const themed = source
-          .replace('</head>', '<link rel="stylesheet" href="./theme.css?v=2"></head>')
+          .replace('</head>', '<link rel="stylesheet" href="./theme.css?v=3"></head>')
           .replace('</body>', '<scr'+'ipt>'+ENHANCE+'</scr'+'ipt></body>');
         document.open();
         document.write(themed);
