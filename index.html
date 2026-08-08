@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Galway Darts Club Format</title>
+</head>
+<body>
+  <noscript>This explainer needs JavaScript enabled.</noscript>
+  <script>
+  (() => {
+    const SOURCE = './index(20260808-164936).html';
+
+    const THEME = String.raw`
+      :root{
+        --club-green:#0d4d2d;
+        --club-green-2:#17663b;
+        --club-green-3:#dfeadd;
+        --club-gold:#c99a32;
+        --club-gold-2:#e0b85a;
+        --club-black:#0b0d0c;
+        --club-charcoal:#151917;
+        --club-paper:#faf9f2;
+        --club-ink:#102017;
+        --club-line:#b9c7b9;
+        --club-muted:#687268;
+        --bg:#0b0d0c !important;
+        --card:#faf9f2 !important;
+        --ink:#102017 !important;
+        --muted:#687268 !important;
+        --line:#b9c7b9 !important;
+        --accent:#0d4d2d !important;
+        --accent-2:#c99a32 !important;
+      }
+
+      *{box-sizing:border-box}
+      html{background:#0b0d0c}
+      body{
+        background:
+          radial-gradient(circle at 15% 12%,rgba(21,102,59,.20),transparent 24%),
+          radial-gradient(circle at 85% 80%,rgba(201,154,50,.10),transparent 28%),
+          repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 1px,transparent 1px 8px),
+          linear-gradient(180deg,#111512,#080a09 70%);
+        color:var(--club-paper)!important;
+      }
+
+      .app{
+        min-height:100dvh!important;
+        background:transparent!important;
+        position:relative;
+      }
+
+      .app:before,.app:after{
+        content:"";
+        position:fixed;
+        z-index:20;
+        pointer-events:none;
+        left:0;right:0;
+        height:5px;
+        background:linear-gradient(90deg,transparent 2%,var(--club-gold) 14%,var(--club-green-2) 50%,var(--club-gold) 86%,transparent 98%);
+      }
+      .app:before{top:0}.app:after{bottom:0}
+
+      header{
+        min-height:92px!important;
+        padding:18px 26px 16px 126px!important;
+        background:
+          linear-gradient(90deg,rgba(13,77,45,.72),rgba(11,13,12,.96) 32%,rgba(11,13,12,.98))!important;
+        border-bottom:3px solid var(--club-gold)!important;
+        color:#fff!important;
+        position:relative!important;
+        overflow:hidden;
+        align-items:center!important;
+      }
+
+      header:before{
+        content:"";
+        position:absolute;
+        width:86px;height:86px;
+        left:22px;top:50%;transform:translateY(-50%);
+        border-radius:50%;
+        border:4px solid #e9e6d6;
+        box-shadow:0 0 0 3px #111,0 0 0 6px var(--club-gold);
+        background:
+          radial-gradient(circle,#b52620 0 6%,#e7e0c6 6% 13%,#0d4d2d 13% 18%,#111 18% 27%,#e7e0c6 27% 42%,#111 42% 57%,#e7e0c6 57% 72%,#111 72% 100%);
+        opacity:.96;
+      }
+
+      header:after{
+        content:"GALWAY DARTS CLUB • FORMAT PROPOSAL";
+        position:absolute;
+        left:128px;bottom:10px;
+        color:var(--club-gold-2);
+        font:800 11px/1 Arial,Helvetica,sans-serif;
+        letter-spacing:.16em;
+      }
+
+      header h1{
+        margin:0 0 18px!important;
+        color:#fff!important;
+        font-family:Impact,"Arial Narrow",Arial,sans-serif!important;
+        font-size:clamp(23px,3.2vw,40px)!important;
+        line-height:.95!important;
+        letter-spacing:.03em;
+        text-transform:uppercase;
+        text-shadow:0 2px 0 rgba(0,0,0,.5);
+      }
+
+      header .meta{
+        color:#f4e3b7!important;
+        font-weight:800!important;
+        font-size:14px!important;
+        background:rgba(201,154,50,.12);
+        border:1px solid rgba(224,184,90,.45);
+        border-radius:999px;
+        padding:7px 11px;
+      }
+
+      .deck{
+        background:transparent!important;
+        scrollbar-color:var(--club-gold) #111;
+      }
+
+      .slide{
+        padding:clamp(18px,3vw,38px)!important;
+        display:grid!important;
+        place-items:center!important;
+        position:relative;
+      }
+
+      .slide:before{
+        content:"";
+        position:absolute;
+        inset:18px;
+        border:1px solid rgba(201,154,50,.17);
+        clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+        pointer-events:none;
+      }
+
+      .card{
+        width:min(1040px,94vw)!important;
+        max-width:1040px!important;
+        margin:auto!important;
+        border:3px solid var(--club-green)!important;
+        border-radius:18px!important;
+        padding:clamp(24px,4vw,44px)!important;
+        background:
+          linear-gradient(180deg,rgba(255,255,255,.96),rgba(250,249,242,.98)),
+          repeating-linear-gradient(0deg,rgba(13,77,45,.025) 0 1px,transparent 1px 6px)!important;
+        color:var(--club-ink)!important;
+        box-shadow:
+          0 0 0 3px rgba(201,154,50,.48),
+          0 18px 50px rgba(0,0,0,.42)!important;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .card:before{
+        content:"";
+        position:absolute;
+        left:0;right:0;top:0;
+        height:9px;
+        background:linear-gradient(90deg,var(--club-green),var(--club-green-2) 68%,var(--club-gold));
+      }
+
+      .card:after{
+        content:attr(data-card-number);
+        position:absolute;
+        right:22px;top:16px;
+        width:44px;height:44px;
+        border-radius:50%;
+        display:grid;place-items:center;
+        background:var(--club-green);
+        color:#fff;
+        border:3px solid #fff;
+        box-shadow:0 0 0 2px var(--club-gold);
+        font:900 17px/1 Arial,sans-serif;
+      }
+
+      .kicker{
+        display:inline-flex!important;
+        align-items:center;
+        gap:8px;
+        color:#fff!important;
+        background:var(--club-green)!important;
+        border:1px solid var(--club-green)!important;
+        border-radius:999px!important;
+        padding:7px 12px!important;
+        margin:0 54px 18px 0!important;
+        font-size:12px!important;
+        font-weight:900!important;
+        letter-spacing:.08em!important;
+        text-transform:uppercase!important;
+      }
+      .kicker:before{content:"◆";color:var(--club-gold-2)}
+
+      h2{
+        color:var(--club-green)!important;
+        font-family:Impact,"Arial Narrow",Arial,sans-serif!important;
+        font-size:clamp(34px,5vw,64px)!important;
+        line-height:.96!important;
+        letter-spacing:.015em!important;
+        text-transform:uppercase;
+        margin:0 0 22px!important;
+      }
+
+      h3{color:var(--club-green)!important}
+      p,li{color:#253329!important}
+      .lead{color:#314337!important;font-weight:650!important}
+      .subtle{color:var(--club-muted)!important}
+
+      .big{
+        display:inline-block;
+        color:var(--club-gold)!important;
+        font-family:Impact,"Arial Narrow",Arial,sans-serif!important;
+        text-transform:uppercase;
+        text-shadow:0 1px 0 #fff,0 2px 0 rgba(13,77,45,.16);
+      }
+
+      .mini,.pod{
+        background:linear-gradient(180deg,#fff,#f1f5ef)!important;
+        border:2px solid #a9bcae!important;
+        border-radius:12px!important;
+        box-shadow:inset 0 1px 0 #fff,0 3px 0 rgba(13,77,45,.06);
+        color:#203126!important;
+      }
+      .mini strong,.pod b{
+        color:var(--club-green)!important;
+        font-weight:900!important;
+        text-transform:uppercase;
+      }
+
+      .pods{gap:13px!important}
+      .pod:nth-child(3){border-color:var(--club-gold)!important}
+
+      table{
+        border-collapse:separate!important;
+        border-spacing:0!important;
+        border:2px solid var(--club-green)!important;
+        border-radius:12px!important;
+        overflow:hidden!important;
+        background:#fff!important;
+      }
+      th{
+        background:var(--club-green)!important;
+        color:#fff!important;
+        text-transform:uppercase;
+        letter-spacing:.03em;
+        border-bottom:2px solid var(--club-gold)!important;
+      }
+      td{color:#213027!important;border-bottom:1px solid #d7e0d7!important}
+      tbody tr:nth-child(even) td{background:#f3f6ef!important}
+      tbody tr:last-child td{border-bottom:0!important}
+
+      .callout{
+        border:0!important;
+        border-left:7px solid var(--club-gold)!important;
+        border-radius:9px!important;
+        background:linear-gradient(90deg,#e6efdf,#f8f8f0)!important;
+        color:#1d3524!important;
+        box-shadow:inset 0 0 0 1px #ccd8c7;
+        font-weight:700;
+      }
+      .callout.warning{
+        border-left-color:#a66c17!important;
+        background:linear-gradient(90deg,#f4e8c8,#fbf8ed)!important;
+      }
+
+      .formula{
+        color:#fff!important;
+        background:#101c15!important;
+        border:2px solid var(--club-green-2)!important;
+        border-left:7px solid var(--club-gold)!important;
+        font-weight:700;
+      }
+
+      .bar{background:#dce6dc!important;border:1px solid #b3c2b3}
+      .bar>span{background:linear-gradient(90deg,var(--club-green),var(--club-green-2),var(--club-gold))!important}
+
+      footer{
+        min-height:66px;
+        padding:11px 18px!important;
+        background:#0e120f!important;
+        border-top:3px solid var(--club-gold)!important;
+        color:#fff!important;
+      }
+      footer button{
+        color:#fff!important;
+        background:var(--club-green)!important;
+        border:2px solid var(--club-gold)!important;
+        border-radius:9px!important;
+        padding:9px 14px!important;
+        font-weight:900!important;
+        text-transform:uppercase;
+        letter-spacing:.03em;
+        box-shadow:0 3px 0 #071f12;
+      }
+      footer button:hover{background:var(--club-green-2)!important;transform:translateY(-1px)}
+      .progress{background:#273027!important;height:8px!important;border:1px solid #394439}
+      .progress>div{background:linear-gradient(90deg,var(--club-green-2),var(--club-gold))!important}
+      .chapter{color:#f0cf81!important;font-weight:900!important;text-transform:uppercase;font-size:12px;letter-spacing:.04em}
+
+      .slide.is-active .card{animation:clubCardIn .38s ease-out both}
+      @keyframes clubCardIn{
+        from{opacity:.35;transform:translateX(18px) scale(.99)}
+        to{opacity:1;transform:none}
+      }
+
+      @media(max-width:760px){
+        header{min-height:76px!important;padding:14px 14px 12px 82px!important}
+        header:before{width:54px;height:54px;left:14px;border-width:3px;box-shadow:0 0 0 2px #111,0 0 0 4px var(--club-gold)}
+        header:after{left:82px;bottom:8px;font-size:8px;letter-spacing:.09em}
+        header h1{font-size:22px!important;margin-bottom:15px!important}
+        .card:after{width:36px;height:36px;right:14px;top:14px;font-size:14px}
+        .kicker{margin-right:42px!important}
+        footer{padding:8px!important}
+        footer .chapter{display:none}
+      }
+
+      @media(prefers-reduced-motion:reduce){
+        *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+      }
+
+      @media print{
+        body{background:#fff!important;color:#111!important}
+        .slide:before,.app:before,.app:after{display:none}
+        .card{box-shadow:none!important}
+      }
+    `;
+
+    const ENHANCE = String.raw`
+      (() => {
+        document.title = 'Galway Darts Club Format';
+        const heading = document.querySelector('header h1');
+        if (heading) heading.textContent = 'Galway Darts Club Format';
+
+        const slides = [...document.querySelectorAll('.slide')];
+        slides.forEach((slide, i) => {
+          const card = slide.querySelector('.card');
+          if (card) card.dataset.cardNumber = String(i + 1).padStart(2, '0');
+        });
+
+        const markActive = () => {
+          const deck = document.getElementById('deck');
+          if (!deck || !slides.length) return;
+          const i = Math.max(0, Math.min(slides.length - 1, Math.round(deck.scrollLeft / Math.max(1, deck.clientWidth))));
+          slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
+        };
+        markActive();
+        document.getElementById('deck')?.addEventListener('scroll', () => requestAnimationFrame(markActive), {passive:true});
+
+        let startX = 0;
+        const deck = document.getElementById('deck');
+        deck?.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, {passive:true});
+        deck?.addEventListener('touchend', e => {
+          const dx = e.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) < 40) return;
+          const i = Math.round(deck.scrollLeft / Math.max(1, deck.clientWidth));
+          const next = Math.max(0, Math.min(slides.length - 1, i + (dx < 0 ? 1 : -1)));
+          slides[next]?.scrollIntoView({behavior:'smooth',inline:'start'});
+        }, {passive:true});
+      })();
+    `;
+
+    fetch(SOURCE, {cache:'no-store'})
+      .then(r => {
+        if (!r.ok) throw new Error('Could not load '+SOURCE+' ('+r.status+')');
+        return r.text();
+      })
+      .then(source => {
+        const themed = source
+          .replace('</head>', `<style id="club-infographic-theme">${THEME}</style></head>`)
+          .replace('</body>', '<scr'+'ipt>'+ENHANCE+'</scr'+'ipt></body>');
+        document.open();
+        document.write(themed);
+        document.close();
+      })
+      .catch(err => {
+        document.body.innerHTML = '<main style="font-family:Arial;padding:2rem;max-width:800px;margin:auto"><h1>Galway Darts Club Format</h1><p>The source explainer could not be loaded.</p><pre style="white-space:pre-wrap">'+String(err)+'</pre></main>';
+      });
+  })();
+  </script>
+</body>
+</html>
