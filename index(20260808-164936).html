@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Darts Club Format — Progressive Explainer</title>
+  <style>
+    :root {
+      --bg:#f4f4f1; --card:#fff; --ink:#161616; --muted:#666;
+      --line:#d8d8d2; --accent:#174f2b; --accent-2:#a77a19;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+    body{overflow:hidden}
+    .app{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+    header{padding:14px 18px;border-bottom:1px solid var(--line);background:#fff;display:flex;gap:14px;align-items:baseline;justify-content:space-between}
+    header h1{margin:0;font-size:20px}.meta{color:var(--muted);font-size:14px;white-space:nowrap}
+    .deck{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;height:100%}
+    .slide{min-width:100vw;height:100%;scroll-snap-align:start;padding:28px;overflow-y:auto}
+    .card{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    .kicker{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:13px;margin-bottom:10px}
+    h2{margin:0 0 14px;font-size:clamp(28px,5vw,54px);line-height:1.05} h3{margin:24px 0 8px}
+    p,li{line-height:1.55;font-size:17px}.lead{font-size:21px;color:#333;max-width:800px}.subtle{color:var(--muted)}
+    .big{font-size:clamp(42px,8vw,86px);font-weight:800;color:var(--accent);line-height:1}
+    .grid{display:grid;gap:16px}.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .mini,.pod{border:1px solid var(--line);border-radius:10px;padding:16px;background:#fafaf8}.mini strong,.pod b{display:block;margin-bottom:4px;color:var(--accent)}
+    .pods{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+    table{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}th{background:#f7f7f4}
+    .compact th,.compact td{padding:5px 7px;font-size:14px}.table-wrap{overflow:auto}
+    .formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f7f7f4;border:1px solid var(--line);padding:12px;border-radius:8px}
+    .callout{border-left:4px solid var(--accent);padding:12px 14px;background:#f7faf8;margin:18px 0}.warning{border-left-color:var(--accent-2);background:#fbf7ed}
+    footer{border-top:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px}.nav{display:flex;gap:8px}
+    button{border:1px solid var(--line);background:white;color:var(--ink);padding:8px 12px;border-radius:8px;cursor:pointer}button:hover{border-color:#aaa}
+    .progress{flex:1;height:6px;background:#ecece7;border-radius:999px;overflow:hidden;max-width:420px}.progress>div{height:100%;width:0;background:var(--accent);transition:width .15s ease}.chapter{font-weight:700;color:var(--accent)}
+    .chain{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0}.chain span{padding:10px 12px;border:1px solid var(--line);background:#fafaf8;border-radius:9px;font-weight:700}.chain i{font-style:normal;color:var(--accent);font-size:22px;font-weight:900}
+    .band{border-left:5px solid var(--accent);padding:10px 12px;margin:8px 0;background:#f7faf8}.band.gold{border-left-color:var(--accent-2);background:#fbf7ed}
+    .scale-row{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;margin:10px 0}.bar{height:28px;background:#e8eee9;border-radius:6px;overflow:hidden;position:relative}.bar>span{display:block;height:100%;background:var(--accent)}.bar-label{position:absolute;inset:0;display:flex;align-items:center;padding-left:10px;font-weight:700;color:#fff;font-size:13px}
+    @media(max-width:760px){.slide{padding:14px}.card{padding:20px;border-radius:10px}.cols-2,.cols-3,.cols-4,.pods{grid-template-columns:1fr}header .meta{display:none}p,li{font-size:16px}.lead{font-size:19px}.compact th,.compact td{font-size:12px;padding:4px}}
+    @media print{body{overflow:visible}.app{display:block}header,footer{display:none}.deck{display:block;overflow:visible;height:auto}.slide{min-width:auto;height:auto;page-break-after:always;padding:18mm}.card{box-shadow:none;border:0;max-width:none}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Darts Club Format — Progressive Explainer</h1>
+    <div class="meta"><span id="counter">1</span> / <span id="total">1</span></div>
+  </header>
+
+  <main class="deck" id="deck">
+
+    <section class="slide" id="overview">
+      <div class="card">
+        <div class="kicker">Chapter 1 · Orientation</div>
+        <h2>The competition in 30 seconds</h2>
+        <p class="lead">You belong to a 16-player group. Every Tuesday you play three compulsory matches. Those three matches give you a Tuesday performance profile and monthly points. Your Tuesday performance also helps decide who you play next week. Four Tuesdays create the monthly table, and the monthly table decides who goes up, stays, or goes down.</p>
+        <div class="chain"><span>3 matches</span><i>→</i><span>Tuesday result</span><i>→</i><span>next opponents</span><i>+</i><span>monthly points</span><i>→</i><span>group movement</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="group-unit">
+      <div class="card">
+        <div class="kicker">The basic unit</div>
+        <h2>One reusable 16-player group</h2>
+        <p>Everything in the format happens inside groups of exactly <strong>16 players</strong>. The same internal system can be repeated for a larger club.</p>
+        <div class="grid cols-3">
+          <div class="mini"><strong>16 players</strong>in one group</div>
+          <div class="mini"><strong>4 pods</strong>inside the group</div>
+          <div class="mini"><strong>24 compulsory matches</strong>per group each Tuesday</div>
+        </div>
+        <div class="callout">Scalability is a consequence of this reusable 16-player unit. The detailed 48 / 64 / 80 / 96 arithmetic comes later.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="group-hierarchy">
+      <div class="card">
+        <div class="kicker">Your long-term level</div>
+        <h2>Group 1 is strongest</h2>
+        <p class="lead">Groups are ordered by playing level. <strong>Group 1 is the strongest group</strong>; Group 2 is below Group 1; Group 3 is below Group 2; and any additional groups continue in the same direction.</p>
+        <div class="grid cols-3">
+          <div class="mini"><strong>Move up</strong>toward Group 1</div>
+          <div class="mini"><strong>Retain</strong>stay in your current group</div>
+          <div class="mini"><strong>Move down</strong>to the next lower group</div>
+        </div>
+        <div class="callout">Your group is your long-term competitive level. Your A–P letter inside that group is temporary.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="ap-position">
+      <div class="card">
+        <div class="kicker">Chapter 2 · Weekly position</div>
+        <h2>Every group has temporary A–P positions</h2>
+        <p>A group contains 16 positions: <strong>A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P</strong>.</p>
+        <p>These are not permanent identities and they are not the monthly promotion table. They are the group's <strong>weekly A–P positions</strong>.</p>
+        <div class="big">A → P</div>
+        <p class="lead">Your current letter helps determine who you play next.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="pods">
+      <div class="card">
+        <div class="kicker">Who you play</div>
+        <h2>A–P creates four pods</h2>
+        <p>The 16 positions are always split in the same pattern:</p>
+        <div class="pods">
+          <div class="pod"><b>Pod 1</b>A, E, I, M</div>
+          <div class="pod"><b>Pod 2</b>B, F, J, N</div>
+          <div class="pod"><b>Pod 3</b>C, G, K, O</div>
+          <div class="pod"><b>Pod 4</b>D, H, L, P</div>
+        </div>
+        <div class="callout">Each pod takes one player from each quarter of the current A–P order.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="three-matches">
+      <div class="card">
+        <div class="kicker">The compulsory darts</div>
+        <h2>You play everyone in your pod</h2>
+        <div class="grid cols-4">
+          <div class="mini"><strong>4 players</strong>per pod</div>
+          <div class="mini"><strong>3 matches</strong>per player</div>
+          <div class="mini"><strong>6 matches</strong>per pod</div>
+          <div class="mini"><strong>24 matches</strong>per group</div>
+        </div>
+        <p>Every compulsory match is <strong>first to two legs</strong>. A match must therefore finish 2–0 or 2–1 to one player.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="match-results">
+      <div class="card">
+        <div class="kicker">Chapter 3 · Tuesday performance</div>
+        <h2>Every leg contributes to Tuesday's result</h2>
+        <p>From one player's point of view, each compulsory match has exactly four possible results:</p>
+        <div class="grid cols-4">
+          <div class="mini"><strong>2–0</strong>win</div>
+          <div class="mini"><strong>2–1</strong>win</div>
+          <div class="mini"><strong>1–2</strong>loss</div>
+          <div class="mini"><strong>0–2</strong>loss</div>
+        </div>
+        <div class="callout">The first priority is to win the match. Inside the same win/loss record, leg performance separates the profiles.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="s-profiles">
+      <div class="card">
+        <div class="kicker">Exact weekly signature</div>
+        <h2>Your three matches become one S-profile</h2>
+        <p>Across three compulsory matches, the four possible match results collapse into exactly <strong>20 possible aggregate profiles</strong>. S1 is best; S20 is worst.</p>
+        <div class="table-wrap">
+          <table class="compact">
+            <thead><tr><th>Profile</th><th>Record</th><th>Legs</th><th>Leg diff.</th></tr></thead>
+            <tbody>
+              <tr><td>S1</td><td>3–0</td><td>6–0</td><td>+6</td></tr>
+              <tr><td>S2</td><td>3–0</td><td>6–1</td><td>+5</td></tr>
+              <tr><td>S3</td><td>3–0</td><td>6–2</td><td>+4</td></tr>
+              <tr><td>S4</td><td>3–0</td><td>6–3</td><td>+3</td></tr>
+              <tr><td>S5</td><td>2–1</td><td>5–2</td><td>+3</td></tr>
+              <tr><td>S6</td><td>2–1</td><td>5–3</td><td>+2</td></tr>
+              <tr><td>S7</td><td>2–1</td><td>4–2</td><td>+2</td></tr>
+              <tr><td>S8</td><td>2–1</td><td>5–4</td><td>+1</td></tr>
+              <tr><td>S9</td><td>2–1</td><td>4–3</td><td>+1</td></tr>
+              <tr><td>S10</td><td>2–1</td><td>4–4</td><td>0</td></tr>
+              <tr><td>S11</td><td>1–2</td><td>4–4</td><td>0</td></tr>
+              <tr><td>S12</td><td>1–2</td><td>4–5</td><td>−1</td></tr>
+              <tr><td>S13</td><td>1–2</td><td>3–4</td><td>−1</td></tr>
+              <tr><td>S14</td><td>1–2</td><td>3–5</td><td>−2</td></tr>
+              <tr><td>S15</td><td>1–2</td><td>2–4</td><td>−2</td></tr>
+              <tr><td>S16</td><td>1–2</td><td>2–5</td><td>−3</td></tr>
+              <tr><td>S17</td><td>0–3</td><td>3–6</td><td>−3</td></tr>
+              <tr><td>S18</td><td>0–3</td><td>2–6</td><td>−4</td></tr>
+              <tr><td>S19</td><td>0–3</td><td>1–6</td><td>−5</td></tr>
+              <tr><td>S20</td><td>0–3</td><td>0–6</td><td>−6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="subtle">The ordering is: match wins → leg difference → legs won.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="s1-target">
+      <div class="card">
+        <div class="kicker">Your Tuesday objective</div>
+        <h2>Get as close to S1 as possible</h2>
+        <div class="grid cols-2">
+          <div class="mini"><strong>S1 — perfect Tuesday</strong>3 wins, 0 losses<br>6 legs won, 0 lost</div>
+          <div class="mini"><strong>S20 — lowest profile</strong>0 wins, 3 losses<br>0 legs won, 6 lost</div>
+        </div>
+        <p class="lead">Every better match result and every useful extra leg moves you toward a stronger profile.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="s-points">
+      <div class="card">
+        <div class="kicker">Chapter 4 · Monthly evidence</div>
+        <h2>Your S-profile also earns S-points</h2>
+        <p>The points are deliberately tier-weighted so that <strong>winning another match matters more</strong> than a small leg difference within the same match record.</p>
+        <div class="grid cols-4">
+          <div class="mini"><strong>3–0 band</strong>S1 32<br>S2 31<br>S3 30<br>S4 29</div>
+          <div class="mini"><strong>2–1 band</strong>S5 24<br>S6 23<br>S7 22<br>S8 21<br>S9 20<br>S10 19</div>
+          <div class="mini"><strong>1–2 band</strong>S11 14<br>S12 13<br>S13 12<br>S14 11<br>S15 10<br>S16 9</div>
+          <div class="mini"><strong>0–3 band</strong>S17 4<br>S18 3<br>S19 2<br>S20 1</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="weekly-resort">
+      <div class="card">
+        <div class="kicker">Exact weekly re-sort rule</div>
+        <h2>Tonight re-sorts A–P for next Tuesday</h2>
+        <ol>
+          <li>After the 24 compulsory matches, put all 16 players together.</li>
+          <li>Sort them by that night's S-profile: S1 first, then S2, through to S20.</li>
+          <li>If two or more players have the <strong>same S-profile</strong>, they keep the same relative order in which they entered that Tuesday.</li>
+        </ol>
+        <div class="callout"><strong>Performance determines movement. Equal performance protects the position already earned.</strong></div>
+        <p>Only the compulsory pod matches create the weekly S-profile used in this re-sort.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="new-opponents">
+      <div class="card">
+        <div class="kicker">The weekly feedback loop</div>
+        <h2>New A–P means new opponents</h2>
+        <p>If you move from M to F, you do not carry the M fixtures with you. Next Tuesday you are simply <strong>F</strong>, so you enter the B–F–J–N pod.</p>
+        <div class="chain"><span>Tuesday results</span><i>→</i><span>S-profile</span><i>→</i><span>new A–P</span><i>→</i><span>new pod</span><i>→</i><span>3 new fixtures</span></div>
+        <p class="lead">This is why A–P matters: it is the short-term sorting state that generates your next set of opponents.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="monthly-table">
+      <div class="card">
+        <div class="kicker">Four-week accumulation</div>
+        <h2>Four Tuesdays make one monthly table</h2>
+        <div class="mini"><strong>Dylan Dowling</strong>Week 1: S3 = 30<br>Week 2: S8 = 21<br>Week 3: S5 = 24<br>Week 4: S2 = 31<br><br><strong>Monthly total: 106 S-points</strong></div>
+        <p>Each Tuesday contributes one S-profile and one S-points value. The four values are added together.</p>
+        <div class="callout">If monthly S-points are tied, compare: <strong>total match wins → total leg difference → total legs won → final published administrative tie-break.</strong></div>
+      </div>
+    </section>
+
+    <section class="slide" id="four-jobs">
+      <div class="card">
+        <div class="kicker">Do not mix the timescales</div>
+        <h2>Four different things. Four different jobs.</h2>
+        <div class="grid cols-4">
+          <div class="mini"><strong>Group</strong>Your longer-term competitive level.</div>
+          <div class="mini"><strong>Weekly A–P position</strong>Determines your current pod and next opponents.</div>
+          <div class="mini"><strong>S-profile</strong>Describes one Tuesday's three-match performance.</div>
+          <div class="mini"><strong>Monthly S-points</strong>Accumulate across four Tuesdays and decide the monthly table.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="objectives">
+      <div class="card">
+        <div class="kicker">Chapter 5 · What am I trying to achieve?</div>
+        <h2>Three levels of objective</h2>
+        <div class="grid cols-3">
+          <div class="mini"><strong>Tuesday</strong>Earn the strongest S-profile possible.</div>
+          <div class="mini"><strong>Month</strong>Accumulate enough S-points to finish safely or earn promotion.</div>
+          <div class="mini"><strong>Season</strong>Reach the strongest appropriate group and stay there.</div>
+        </div>
+        <p class="lead">A–P is tactically important because it determines your next opponents. Your monthly S-points and group status are the larger competitive objectives.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="strategy">
+      <div class="card">
+        <div class="kicker">Simple player strategy</div>
+        <h2>What should I try to do?</h2>
+        <ol>
+          <li><strong>Win the match.</strong> A match win moves you into a stronger S-profile band.</li>
+          <li><strong>Prefer 2–0 to 2–1.</strong> Clean wins strengthen the profile.</li>
+          <li><strong>If losing, fight for the leg.</strong> A 1–2 loss is better than 0–2.</li>
+          <li><strong>Do it across all four Tuesdays.</strong> Monthly performance rewards consistency as well as peaks.</li>
+          <li><strong>Turn up.</strong> A full-night absence gives the lowest profile, S20.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide" id="movement">
+      <div class="card">
+        <div class="kicker">Month-end consequence</div>
+        <h2>Promoted, retained or relegated</h2>
+        <p>The monthly S-points table orders the 16 players in each group for the month.</p>
+        <div class="grid cols-3">
+          <div class="mini"><strong>Top 2</strong>Move up one group, except players already in Group 1.</div>
+          <div class="mini"><strong>Middle players</strong>Remain in the same group.</div>
+          <div class="mini"><strong>Bottom 2</strong>Move down one group, except players already in the lowest group.</div>
+        </div>
+        <div class="callout">At every boundary, two players travel each way: for example, bottom two of Group 1 ↔ top two of Group 2.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="monthly-reset">
+      <div class="card">
+        <div class="kicker">Start the next month cleanly</div>
+        <h2>Then A–P resets alphabetically</h2>
+        <ol>
+          <li>The monthly table closes.</li>
+          <li>Promotion and relegation create the new group memberships.</li>
+          <li>Inside each new 16-player group, names are placed A–P alphabetically.</li>
+          <li>The next four-Tuesday cycle begins.</li>
+        </ol>
+        <div class="callout"><strong>Group membership carries over. The old A–P letters do not.</strong></div>
+      </div>
+    </section>
+
+    <section class="slide" id="absence">
+      <div class="card">
+        <div class="kicker">Core player rule</div>
+        <h2>What happens if I miss Tuesday?</h2>
+        <ul>
+          <li>A fully absent player receives three scheduled 0–2 defeats.</li>
+          <li>That produces <strong>S20</strong> for the night.</li>
+          <li>There are no rearranged or postponed compulsory matches.</li>
+          <li>If a player starts the night and later withdraws, completed results stand; unplayed scheduled matches become 0–2 defeats.</li>
+        </ul>
+        <p class="subtle">The rare case where both players scheduled against one another are absent still requires a final printed administrative convention.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="manifest">
+      <div class="card">
+        <div class="kicker">Chapter 6 · For organisers</div>
+        <h2>Every compulsory fixture is known in advance</h2>
+        <p class="lead">Once the current A–P positions are published, each player's pod is known. Therefore every compulsory match for the next Tuesday can be listed before the night begins.</p>
+        <div class="chain"><span>A–P known</span><i>→</i><span>pods known</span><i>→</i><span>fixtures known</span><i>→</i><span>fixture manifest</span></div>
+        <p>The manifest fixes <strong>who must play whom</strong>. It does not need to fix the exact board or exact time.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="mc">
+      <div class="card">
+        <div class="kicker">Live dispatch</div>
+        <h2>The MC manages traffic, not rules</h2>
+        <ul>
+          <li>Call the next eligible fixture whenever a board becomes free.</li>
+          <li>Do not call a player who is already playing or chalking.</li>
+          <li>Record every completed result.</li>
+          <li>Keep boards occupied and move spare capacity to the group falling behind.</li>
+          <li>The competition rules have already decided the opponents.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" id="board-flow">
+      <div class="card">
+        <div class="kicker">Flexible execution</div>
+        <h2>Boards are flexible. Fixtures are fixed.</h2>
+        <p>Pod fixtures may be played in any sensible order and on any available board. There is no mathematical need to finish Pod 1 before Pod 2, or to keep one pod permanently on one board.</p>
+        <div class="callout"><strong>Chalking convention:</strong> the loser of the previous game on a board chalks the next game on that board, unless the MC needs that player immediately for another match.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="close-loop">
+      <div class="card">
+        <div class="kicker">The Tuesday-night loop</div>
+        <h2>By the end of the night, next Tuesday can already exist</h2>
+        <div class="formula">results → S-profiles → weekly re-sort A–P → new pods → next Tuesday's fixture manifest</div>
+        <p class="lead">The draw for the following week is not improvised later. It emerges deterministically from the completed Tuesday.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="scalability">
+      <div class="card">
+        <div class="kicker">Chapter 7 · Scalability</div>
+        <h2>Repeat the same 16-player engine</h2>
+        <table>
+          <thead><tr><th>Players</th><th>Groups</th><th>Pods</th><th>Compulsory matches / Tuesday</th><th>Average / board on 10 boards</th></tr></thead>
+          <tbody>
+            <tr><td>48</td><td>3 × 16</td><td>12</td><td>72</td><td>7.2</td></tr>
+            <tr><td>64</td><td>4 × 16</td><td>16</td><td>96</td><td>9.6</td></tr>
+            <tr><td>80</td><td>5 × 16</td><td>20</td><td>120</td><td>12.0</td></tr>
+            <tr><td>96</td><td>6 × 16</td><td>24</td><td>144</td><td>14.4</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">The rules inside a group do not change. Scaling means running more identical 16-player groups in parallel.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="capacity">
+      <div class="card">
+        <div class="kicker">Venue constraint</div>
+        <h2>Capacity becomes the limit — not the rules</h2>
+        <p>The competition remains mathematically uniform as groups are added. The practical question becomes whether ten boards and the available session length can clear the manifest.</p>
+        <div class="grid cols-4">
+          <div class="mini"><strong>48 players</strong>72 games<br>lightest of these examples</div>
+          <div class="mini"><strong>64 players</strong>96 games<br>9.6 per board average</div>
+          <div class="mini"><strong>80 players</strong>120 games<br>12 per board average</div>
+          <div class="mini"><strong>96 players</strong>144 games<br>14.4 per board average</div>
+        </div>
+        <div class="callout warning">At the upper sizes, match duration, transitions and MC dispatch efficiency become operational design questions.</div>
+      </div>
+    </section>
+
+    <section class="slide" id="validation-s-points">
+      <div class="card">
+        <div class="kicker">Chapter 8 · Why these choices?</div>
+        <h2>Why separate weekly A–P from monthly S-points?</h2>
+        <p>The original idea allowed the final Tuesday's A–P state to carry too much influence over promotion and relegation. Accumulating four S-point results makes all four Tuesdays contribute to the monthly decision.</p>
+        <div class="grid cols-3">
+          <div class="mini"><strong>79.3%</strong>pairwise agreement with the raw 12-match benchmark using only Week-4 A–P</div>
+          <div class="mini"><strong>98.4%</strong>using simple ordinal S-points</div>
+          <div class="mini"><strong>99.4%</strong>using the proposed tier-weighted S-points</div>
+        </div>
+        <p class="subtle">These figures come from simulation modelling, not historical club data.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="validation-alphabetical">
+      <div class="card">
+        <div class="kicker">Validation · Monthly reset</div>
+        <h2>Why is alphabetical A–P acceptable?</h2>
+        <p>Alphabetical seeding creates a small transient Week-1 ordering effect because equal S-profiles preserve incoming order. The modelling found that effect largely washed out by Week 2.</p>
+        <div class="callout">In the equal-ability stress test, mean monthly rank varied by only about <strong>0.19 of a place</strong> across initial A–P positions.</div>
+        <p>So alphabetical order is transparent, repeatable and sufficiently neutral for the monthly reset.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="validation-movement">
+      <div class="card">
+        <div class="kicker">Validation · Group movement</div>
+        <h2>Why two up / two down?</h2>
+        <p>Simulation of eight-month seasons found that two movers per group boundary gave the best tested balance between allowing strong players to climb and avoiding excessive month-to-month churn.</p>
+        <div class="scale-row"><strong>1 mover</strong><div class="bar"><span style="width:73%"></span><div class="bar-label">72.9% correctly grouped after Month 8</div></div></div>
+        <div class="scale-row"><strong>2 movers</strong><div class="bar"><span style="width:84%"></span><div class="bar-label">83.8%</div></div></div>
+        <div class="scale-row"><strong>3 movers</strong><div class="bar"><span style="width:81%"></span><div class="bar-label">80.8%</div></div></div>
+        <div class="scale-row"><strong>4 movers</strong><div class="bar"><span style="width:78%"></span><div class="bar-label">78.4%</div></div></div>
+        <p class="subtle">Model-based estimates; they support the current proposal rather than guarantee real-world percentages.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="closed-pod">
+      <div class="card">
+        <div class="kicker">Technical validation</div>
+        <h2>The pod is mathematically closed</h2>
+        <p>Four players create six compulsory matches. Each match has four possible scored outcomes from a labelled perspective. Therefore a complete pod has:</p>
+        <div class="big">4⁶ = 4,096</div>
+        <ul>
+          <li>3,680 configurations produce one unique first-place player.</li>
+          <li>384 produce exactly two players tied for first.</li>
+          <li>32 produce exactly three players tied for first.</li>
+          <li>A four-way tie for first is impossible.</li>
+        </ul>
+        <p class="subtle">This is technical evidence that the pod outcome space can be exhaustively anticipated; a player does not need it in order to play.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="summary">
+      <div class="card">
+        <div class="kicker">The whole system</div>
+        <h2>One causal chain</h2>
+        <div class="chain"><span>Group</span><i>→</i><span>A–P</span><i>→</i><span>Pod</span><i>→</i><span>3 matches</span><i>→</i><span>S-profile</span><i>→</i><span>weekly re-sort</span></div>
+        <div class="chain"><span>S-profile</span><i>→</i><span>S-points</span><i>→</i><span>4 Tuesdays</span><i>→</i><span>monthly table</span><i>→</i><span>promotion / retention / relegation</span></div>
+        <p class="lead">Then the new groups are formed, A–P resets alphabetically, and the same process begins again.</p>
+        <div class="callout"><strong>Scaling does not change the core rules.</strong> It simply repeats the same 16-player group as many times as the venue can practically support.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="nav">
+      <button type="button" id="prev">← Previous</button>
+      <button type="button" id="next">Next →</button>
+    </div>
+    <div class="progress" aria-label="Progress"><div id="progressBar"></div></div>
+    <div class="chapter" id="chapterLabel">Start</div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const deck=document.getElementById('deck');
+  const slides=[...document.querySelectorAll('.slide')];
+  const counter=document.getElementById('counter');
+  const total=document.getElementById('total');
+  const progressBar=document.getElementById('progressBar');
+  const chapterLabel=document.getElementById('chapterLabel');
+  const prev=document.getElementById('prev');
+  const next=document.getElementById('next');
+  total.textContent=slides.length;
+
+  function currentIndex(){return Math.max(0,Math.min(slides.length-1,Math.round(deck.scrollLeft/Math.max(1,deck.clientWidth))))}
+  function updateUI(){const i=currentIndex();counter.textContent=i+1;progressBar.style.width=`${((i+1)/slides.length)*100}%`;const kicker=slides[i].querySelector('.kicker');chapterLabel.textContent=kicker?kicker.textContent:`Card ${i+1}`;history.replaceState(null,'','#'+slides[i].id)}
+  function goTo(index){const i=Math.max(0,Math.min(slides.length-1,index));slides[i].scrollIntoView({behavior:'smooth',inline:'start'})}
+  prev.addEventListener('click',()=>goTo(currentIndex()-1));next.addEventListener('click',()=>goTo(currentIndex()+1));
+  window.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();goTo(currentIndex()+1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goTo(currentIndex()-1)}if(e.key==='Home'){e.preventDefault();goTo(0)}if(e.key==='End'){e.preventDefault();goTo(slides.length-1)}});
+  let raf;deck.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(updateUI)},{passive:true});
+  window.addEventListener('load',()=>{const id=location.hash.slice(1);const target=id&&document.getElementById(id);if(target)target.scrollIntoView({inline:'start'});updateUI()});
+})();
+</script>
+</body>
+</html>
